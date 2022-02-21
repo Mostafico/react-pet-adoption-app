@@ -1,6 +1,11 @@
-import { Component } from "react";
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import { Component, MouseEvent, ReactNode } from "react";
 
-class Carousel extends Component {
+interface IProps {
+  images: string[];
+}
+
+class Carousel extends Component<IProps> {
   state = {
     active: 0,
   };
@@ -9,13 +14,18 @@ class Carousel extends Component {
     images: ["http://pets-images.dev-apis.com/pets/none.jpg"],
   };
 
-  handleIndexClick = (event) => {
-    this.setState({
-      active: +event.target.dataset.index,
-    });
+  handleIndexClick = (event: MouseEvent<HTMLElement>): void => {
+    if (!(event.target instanceof HTMLElement)) {
+      return;
+    }
+    if (event.target.dataset.index) {
+      this.setState({
+        active: +event.target.dataset.index,
+      });
+    }
   };
 
-  render() {
+  render(): ReactNode {
     const { active } = this.state;
     const { images } = this.props;
 
@@ -24,6 +34,7 @@ class Carousel extends Component {
         <img src={images[active]} alt="animal" />
         <div className="carousel-smaller">
           {images.map((photo, index) => (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <img
               key={photo}
               src={photo}
