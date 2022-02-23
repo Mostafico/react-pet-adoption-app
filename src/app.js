@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import SearchParams from "./SearchParams";
 import Details from "./Details";
 import ThemeContext from "./ThemeContext";
+import { Provider } from "react-redux";
+import store from "./store";
 
 // const App = () => {
 //   return React.createElement("div", {}, [
@@ -27,9 +29,9 @@ import ThemeContext from "./ThemeContext";
 // };
 
 const App = () => {
-  const theme = useState("darkblue");
+  // const theme = useState("darkblue");
   return (
-    <ThemeContext.Provider value={theme}>
+    <Provider store={store}>
       <div>
         <Router>
           <header>
@@ -47,7 +49,7 @@ const App = () => {
           </Switch>
         </Router>
       </div>
-    </ThemeContext.Provider>
+    </Provider>
   );
 };
 
